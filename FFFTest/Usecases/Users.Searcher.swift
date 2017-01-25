@@ -33,27 +33,26 @@ extension Users {
         private let jsonifier = DataToJSONConverter.self
         
         private var userName: String = ""
+        private var resultAction: ((Result<User>) -> Void)?
         
-        func search(by userName: String, resultAction: @escaping (Result<[User]>) -> Void) {
+        func search(by userName: String, resultAction: @escaping (Result<User>) -> Void) {
             self.userName = userName
+            self.resultAction = resultAction
             let request = URLRequestBuilder(requestOptionsOwner: self).build()
             NetworkCaller(request: request, responseHandler: self).makeTheCall()
         }
     
         public func success(data: Data) {
-            print("success", data)
-            if let json = jsonifier.json(from: data) {
-                print(json)
-//                let object = User(json)
-//                if let object = object {
-//                    resultAction(Result<[User]>.success(object))
-//                } else {
+            if let userJson = jsonifier.json(from: data)?["user"] as? JSON {
+                if let user = User(json: userJson) {
+                    resultAction?(Result<User>.success(user))
+                } else {
 //                    let responseError = ResponseError(networkStatus: .ok, responseDictionary: json)
 //                    log(responseError: responseError)
 //                    log("failed to parse Person")
 //                    resultAction(Result<[Person]>.failure(responseError))
-//                }
-//            } else {
+                }
+            } else {
 //                let responseError = ResponseError(networkStatus: .parseError, responseDictionary: nil)
 //                log(responseError: responseError)
 //                resultAction(Result<[Person]>.failure(responseError))

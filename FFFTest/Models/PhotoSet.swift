@@ -14,12 +14,16 @@ struct PhotoSet {
     let totalPages: Int
     let photos: [FlickrPhoto]
     
-    var hasMorePages: Bool {
-        return currentPage == totalPages
-    }
-    
     var isFirstPage: Bool {
         return currentPage == 1
+    }
+    
+    var hasMorePages: Bool {
+        return currentPage != totalPages
+    }
+    
+    var isLastPage: Bool {
+        return hasMorePages
     }
     
     static let empty = PhotoSet(currentPage: 0, totalPages: 0, photos: [])

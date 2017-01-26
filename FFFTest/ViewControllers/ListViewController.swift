@@ -167,7 +167,10 @@ extension ListViewController : UICollectionViewDataSource {
 
 extension ListViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let user = user, indexPath.item == photoSet.photos.count - itemsMissingToLoadAnotherPage {
+        if let user = user,
+            indexPath.item == photoSet.photos.count - itemsMissingToLoadAnotherPage,
+            photoSet.hasMorePages {
+            
             loadPhotos(for: user, in: photoSet.currentPage + 1)
         }
     }

@@ -23,4 +23,8 @@ struct PhotoSet {
     }
     
     static let empty = PhotoSet(currentPage: 0, totalPages: 0, photos: [])
+    
+    var isEmpty: Bool {
+        return photos.count == 0
+    }
 }

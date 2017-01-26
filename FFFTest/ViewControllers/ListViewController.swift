@@ -41,12 +41,10 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
         
         loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.startAnimating()
         
         collectionViewLayout.minimumInteritemSpacing = 1
         applyItemSize(basedOn: traitCollection)
         photosCollectionView.collectionViewLayout = collectionViewLayout
-        searchUser(named: "almsaeed22333")
     }
     
     private func applyItemSize(basedOn newTraitCollection: UITraitCollection) {
@@ -109,6 +107,10 @@ class ListViewController: UIViewController {
             s.loadingLabel.isHidden = true
             switch result {
             case .success(let photoSet):
+                if photoSet.isEmpty {
+                    s.loadingLabel.isHidden = false
+                    s.loadingLabel.text = "This user has no photos"
+                }
                 if photoSet.isFirstPage {
                     s.photoSet = photoSet
                 } else {
@@ -119,8 +121,8 @@ class ListViewController: UIViewController {
                                           photos: currentPhotosList)
                 }
                 self?.photosCollectionView.reloadData()
-            case .failure(let error):
-                print(error)
+            case .failure(_):
+                s.loadingLabel.text = "There was an error loading this user's photos."
             }
         }
     }
@@ -146,7 +148,7 @@ extension ListViewController : UISearchBarDelegate {
             searchBar.resignFirstResponder()
         }
     }
-        
+    
 }
 
 extension ListViewController : UICollectionViewDataSource {

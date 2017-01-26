@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit //This is a big code smell...
 
 public struct NetworkCaller {
     
@@ -26,11 +27,12 @@ public struct NetworkCaller {
     }
     
     public func makeTheCall() {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         session.dataTask(with: request, completionHandler: responseHandler).resume()
     }
     
-    //TODO this actyally doesn't belong here.
     private func responseHandler(data: Data?, response: URLResponse?, error: Error?) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         let responseValidator = ResponseValidator(data: data, response: response, error: error)
         if responseValidator.success {
             responseHandler.success(data: data!)

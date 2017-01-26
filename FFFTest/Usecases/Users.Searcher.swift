@@ -44,24 +44,21 @@ extension Users {
     
         public func success(data: Data) {
             if let userJson = jsonifier.json(from: data)?["user"] as? JSON {
-                if let user = User(json: userJson) {
-                    resultAction?(Result<User>.success(user))
-                } else {
-//                    let responseError = ResponseError(networkStatus: .ok, responseDictionary: json)
-//                    log(responseError: responseError)
-//                    log("failed to parse Person")
-//                    resultAction(Result<[Person]>.failure(responseError))
+                DispatchQueue.main.async { [weak self] in
+                    if let user = User(json: userJson) {
+                        self?.resultAction?(Result<User>.success(user))
+                    } else {
+                        self?.resultAction?(Result<User>.failure(UserError.notParseable))
+                    }
                 }
             } else {
-//                let responseError = ResponseError(networkStatus: .parseError, responseDictionary: nil)
-//                log(responseError: responseError)
-//                resultAction(Result<[Person]>.failure(responseError))
+                DispatchQueue.main.async { [weak self] in
+                    self?.resultAction?(Result<User>.failure(UserError.notFound))
+                }
             }
         }
         
         public func failure(status: NetworkStatus, data: Data?) {
-            print("failure", status)
-            print("failure", data)
             if let data = data {
                 let json = jsonifier.json(from: data)
                 print(json)

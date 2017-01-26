@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		24E742E76776B84BB62565AC /* Pods_FFFTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF19D50862D7E98ABAE8ED49 /* Pods_FFFTestTests.framework */; };
 		80BD2CD777F089A6A6E7C87F /* Pods_FFFTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1014E923532BCDC3B74C5A18 /* Pods_FFFTest.framework */; };
+		8511D7061E3A038F00AEAF2B /* UserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8511D7051E3A038F00AEAF2B /* UserError.swift */; };
 		85345C6C1E38A89000729CC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85345C6B1E38A89000729CC9 /* AppDelegate.swift */; };
 		85345C711E38A89000729CC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85345C6F1E38A89000729CC9 /* Main.storyboard */; };
 		85345C731E38A89000729CC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85345C721E38A89000729CC9 /* Assets.xcassets */; };
@@ -70,6 +71,7 @@
 		2FD08917537F71D85D5AE926 /* Pods_FFFTestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FFFTestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B015B367FDB01C23058A2BC /* Pods-FFFTestUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FFFTestUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FFFTestUITests/Pods-FFFTestUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		65935221E3A77C4272314150 /* Pods-FFFTestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FFFTestTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FFFTestTests/Pods-FFFTestTests.release.xcconfig"; sourceTree = "<group>"; };
+		8511D7051E3A038F00AEAF2B /* UserError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserError.swift; path = Usecases/Users/UserError.swift; sourceTree = "<group>"; };
 		85345C681E38A89000729CC9 /* FFFTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FFFTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85345C6B1E38A89000729CC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85345C701E38A89000729CC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 				85345CA71E38B0F800729CC9 /* Users.Searcher.swift */,
 				85345CAB1E38B3DD00729CC9 /* User.PublicPhotosGetter.swift */,
 				85345CAD1E38B42300729CC9 /* Users.swift */,
+				8511D7051E3A038F00AEAF2B /* UserError.swift */,
 			);
 			name = Users;
 			sourceTree = "<group>";
@@ -631,6 +634,7 @@
 				85345CCD1E38E40200729CC9 /* URLRequest.swift in Sources */,
 				85345CD61E38FE4100729CC9 /* FlickerApiMethod.swift in Sources */,
 				85345CD41E38F51F00729CC9 /* RequestEncoding.swift in Sources */,
+				8511D7061E3A038F00AEAF2B /* UserError.swift in Sources */,
 				85345CAC1E38B3DD00729CC9 /* User.PublicPhotosGetter.swift in Sources */,
 				85478EF31E395DC5000B0AC0 /* PhotoSet.swift in Sources */,
 				85345CD21E38E90000729CC9 /* DataToJSONConverter.swift in Sources */,

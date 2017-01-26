@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3UM-zi-Ybm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3UM-zi-Ybm">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -28,7 +28,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="aww-VP-yHb"/>
                                 </connections>
                             </searchBar>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KcC-mk-2Rv">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KcC-mk-2Rv">
                                 <rect key="frame" x="0.0" y="108" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wuK-2l-R4m">
@@ -68,20 +68,36 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Rov-Gk-rc6"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="f2S-pl-Ioi">
+                                <rect key="frame" x="177" y="344.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="04d-vr-X9A" userLabel="StateLabel">
+                                <rect key="frame" x="10" y="374.5" width="355" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="04d-vr-X9A" firstAttribute="centerY" secondItem="KcC-mk-2Rv" secondAttribute="centerY" id="3HD-zw-WaV"/>
+                            <constraint firstItem="04d-vr-X9A" firstAttribute="top" secondItem="f2S-pl-Ioi" secondAttribute="bottom" constant="10" id="CVr-HA-Yfz"/>
+                            <constraint firstItem="04d-vr-X9A" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="Ccx-HX-6e0"/>
                             <constraint firstAttribute="trailing" secondItem="po8-CH-h2T" secondAttribute="trailing" id="J39-Kr-96y"/>
+                            <constraint firstAttribute="trailing" secondItem="04d-vr-X9A" secondAttribute="trailing" constant="10" id="J8e-Nl-68C"/>
                             <constraint firstItem="po8-CH-h2T" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Qvf-SQ-UR4"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="KcC-mk-2Rv" secondAttribute="bottom" id="Wi5-tk-Su1"/>
                             <constraint firstItem="KcC-mk-2Rv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bmt-zA-oTf"/>
                             <constraint firstItem="KcC-mk-2Rv" firstAttribute="top" secondItem="po8-CH-h2T" secondAttribute="bottom" id="d4R-yw-yvo"/>
+                            <constraint firstItem="f2S-pl-Ioi" firstAttribute="centerX" secondItem="04d-vr-X9A" secondAttribute="centerX" id="sLg-Qi-1FZ"/>
                             <constraint firstAttribute="trailing" secondItem="KcC-mk-2Rv" secondAttribute="trailing" id="wjP-rf-C7c"/>
                             <constraint firstItem="po8-CH-h2T" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="zBf-hf-Fiy"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Flickr Fotos" id="swF-UE-k1n"/>
                     <connections>
+                        <outlet property="loadingIndicator" destination="f2S-pl-Ioi" id="wqW-Aq-lDR"/>
+                        <outlet property="loadingLabel" destination="04d-vr-X9A" id="PiM-dz-O9x"/>
                         <outlet property="photosCollectionView" destination="KcC-mk-2Rv" id="izQ-yX-bRh"/>
                     </connections>
                 </viewController>

@@ -7,24 +7,22 @@
 //
 
 import UIKit
+import Nuke
 
 class ListViewController: UIViewController {
     
     @IBOutlet weak var photosCollectionView: UICollectionView!
     
     fileprivate let userSearcher = Users.Searcher()
-    fileprivate var photos: [FlickrPhoto] = []
+    fileprivate var photoSet = PhotoSet.empty
     fileprivate var lastNameSearched = ""
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    fileprivate var user: User?
     
     fileprivate func searchUser(named name: String) {
-        //"ryanlsmith"
         userSearcher.search(by: name) { result in
             switch result {
             case .success(let user):
+                self.user = user
                 self.loadPhotos(for: user)
             case .failure(let error):
                 print(error) //TODO handle error
@@ -32,12 +30,20 @@ class ListViewController: UIViewController {
         }
     }
     
-    private func loadPhotos(for user: User) {
-//        let user = User(id: "62060901@N06", userName: "ryanlsmith")
-        Users.PublicPhotosGetter(user: user).getPublicPhotos() { [weak self] result in
+    fileprivate func loadPhotos(for user: User, in page: Int = 0) {
+        Users.PublicPhotosGetter(user: user).getPublicPhotos(in: page) { [weak self] result in
+            guard let s = self else { return }
             switch result {
-            case .success(let photos):
-                self?.photos = photos
+            case .success(let photoSet):
+                if photoSet.isFirstPage {
+                    s.photoSet = photoSet
+                } else {
+                    var currentPhotosList = s.photoSet.photos
+                    currentPhotosList.append(contentsOf: photoSet.photos)
+                    s.photoSet = PhotoSet(currentPage: photoSet.currentPage,
+                                          totalPages: photoSet.totalPages,
+                                          photos: currentPhotosList)
+                }
                 self?.photosCollectionView.reloadData()
             case .failure(let error):
                 print(error)
@@ -49,7 +55,7 @@ class ListViewController: UIViewController {
         if segue.identifier == "ShowImageDetailsSegue",
             let detailsViewController = segue.destination as? ImageDetailViewController,
             let selectedIndexPath = photosCollectionView.indexPathsForSelectedItems?.first{
-            detailsViewController.flickrPhoto = photos[selectedIndexPath.item]
+            detailsViewController.flickrPhoto = photoSet.photos[selectedIndexPath.item]
         }
     }
 
@@ -73,21 +79,23 @@ extension ListViewController : UISearchBarDelegate {
 extension ListViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+        return photoSet.photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
-        let photo = photos[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(for: indexPath) as PhotoCell
+        let photo = photoSet.photos[indexPath.item]
         
-        DispatchQueue.global().async {
-            let image = UIImage(data: try! Data(contentsOf: photo.url(for: .minuatureLongerSide100)))
-            DispatchQueue.main.async {
-                cell.photoImageView.image = image
-            }
-        }
-        
+        Nuke.loadImage(with: photo.url(for: .minuatureLongerSide100), into: cell.photoImageView)
         return cell
     }
     
+}
+
+extension ListViewController : UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let user = user, indexPath.item == photoSet.photos.count - 20 { //TODO make this a more generic value
+            loadPhotos(for: user, in: photoSet.currentPage + 1)
+        }
+    }
 }

@@ -66,6 +66,7 @@
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="bRa-sC-v1A"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Rov-Gk-rc6"/>
                                 </connections>
                             </collectionView>
                         </subviews>

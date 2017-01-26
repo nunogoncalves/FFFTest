@@ -26,7 +26,8 @@ extension Users {
                 "api_key" : FlickrCredentials.apiKey,
                 "format" : "json",
                 "nojsoncallback" : "1",
-                "user_id" : user.id
+                "user_id" : user.id,
+                "page" : page
             ]
         }
         
@@ -35,15 +36,17 @@ extension Users {
         private let jsonifier = DataToJSONConverter.self
         
         let user: User
+        var page = 0
         
-        private var resultAction: ((Result<[FlickrPhoto]>) -> Void)?
+        private var resultAction: ((Result<PhotoSet>) -> Void)?
         
         init(user: User) {
             self.user = user
         }
         
-        func getPublicPhotos(resultAction: @escaping (Result<[FlickrPhoto]>) -> Void) {
+        func getPublicPhotos(in page: Int = 0, resultAction: @escaping (Result<PhotoSet>) -> Void) {
             self.resultAction = resultAction
+            self.page = page
             DispatchQueue.global().async {
                 let request = URLRequestBuilder(requestOptionsOwner: self).build()
                 NetworkCaller(request: request, responseHandler: self).makeTheCall()
@@ -51,11 +54,15 @@ extension Users {
         }
         
         public func success(data: Data) {
-            if let json = jsonifier.json(from: data) {
-                if let photosDic = (json as NSDictionary).value(forKeyPath: "photos.photo") as? [JSON] {
+            if let json = jsonifier.json(from: data),
+                let resultDic = json["photos"] as? JSON {
+                if let photosDic = resultDic["photo"] as? [JSON],
+                    let currentPage = resultDic["page"] as? Int,
+                    let totalPages = resultDic["pages"] as? Int {
                     let photos = photosDic.flatMap { FlickrPhoto(json: $0) }
+                    let photoSet = PhotoSet(currentPage: currentPage, totalPages: totalPages, photos: photos)
                     DispatchQueue.main.async {
-                        self.resultAction?(Result.success(photos))
+                        self.resultAction?(Result.success(photoSet))
                     }
                 }
                 

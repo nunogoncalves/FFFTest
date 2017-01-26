@@ -18,7 +18,47 @@ class ListViewController: UIViewController {
     fileprivate var lastNameSearched = ""
     fileprivate var user: User?
     
+    private let collectionViewLayout = UICollectionViewFlowLayout()
+    
+    private let defaultRowsCountPerLine = 5
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        collectionViewLayout.minimumInteritemSpacing = 1
+        applyItemSize(basedOn: traitCollection)
+        photosCollectionView.collectionViewLayout = collectionViewLayout
+    }
+    
+    private func applyItemSize(basedOn newTraitCollection: UITraitCollection) {
+        let numberOfItems = CGFloat(rowsPerHorizontalSizeClass[newTraitCollection.horizontalSizeClass] ?? defaultRowsCountPerLine)
+        
+        let itemWitdh = view.frame.width / numberOfItems - (numberOfItems - 1)
+        collectionViewLayout.itemSize = CGSize(width: itemWitdh, height: itemWitdh)
+    }
+    
+    private lazy var rowsPerHorizontalSizeClass: [UIUserInterfaceSizeClass : Int] = {
+        return [
+            .compact : self.defaultRowsCountPerLine,
+            .regular: 7
+        ]
+    }()
+    
+    private func numberOfItemsPerRow(for horizontalSizeClass: UIUserInterfaceSizeClass) -> Int {
+        if horizontalSizeClass == .compact {
+            return 5
+        } else {
+            return 7
+        }
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection,
+                                 with coordinator: UIViewControllerTransitionCoordinator) {
+        applyItemSize(basedOn: newCollection)
+    }
+    
     fileprivate func searchUser(named name: String) {
+        //TODO: Wrap this on a DispatchGroup of two calls. User and photos.
         userSearcher.search(by: name) { result in
             switch result {
             case .success(let user):
@@ -58,8 +98,7 @@ class ListViewController: UIViewController {
             detailsViewController.flickrPhoto = photoSet.photos[selectedIndexPath.item]
         }
     }
-
-    
+   
 }
 
 extension ListViewController : UISearchBarDelegate {
@@ -83,9 +122,8 @@ extension ListViewController : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(for: indexPath) as PhotoCell
+        let cell: PhotoCell = collectionView.dequeueReusableCell(for: indexPath)
         let photo = photoSet.photos[indexPath.item]
-        
         Nuke.loadImage(with: photo.url(for: .minuatureLongerSide100), into: cell.photoImageView)
         return cell
     }

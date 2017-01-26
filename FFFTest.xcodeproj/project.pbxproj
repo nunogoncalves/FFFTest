@@ -41,6 +41,7 @@
 		85478EEF1E3937CC000B0AC0 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85478EEE1E3937CC000B0AC0 /* ImageDetailViewController.swift */; };
 		85478EF11E3937EC000B0AC0 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85478EF01E3937EC000B0AC0 /* ListViewController.swift */; };
 		85478EF51E39642E000B0AC0 /* Nuke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85478EF41E39642E000B0AC0 /* Nuke.framework */; };
+		85478EF71E3965F5000B0AC0 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85478EF61E3965F5000B0AC0 /* Reusable.swift */; };
 		BA9AABFF2933EC9FE8CD53DE /* Pods_FFFTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD08917537F71D85D5AE926 /* Pods_FFFTestUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +106,7 @@
 		85478EEE1E3937CC000B0AC0 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageDetailViewController.swift; path = ViewControllers/ImageDetailViewController.swift; sourceTree = "<group>"; };
 		85478EF01E3937EC000B0AC0 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewController.swift; path = ViewControllers/ListViewController.swift; sourceTree = "<group>"; };
 		85478EF41E39642E000B0AC0 /* Nuke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nuke.framework; path = "Pods/../build/Debug-iphoneos/Nuke/Nuke.framework"; sourceTree = "<group>"; };
+		85478EF61E3965F5000B0AC0 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reusable.swift; path = Models/Reusable.swift; sourceTree = "<group>"; };
 		88DAD57BBCB160377C683D45 /* Pods-FFFTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FFFTestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FFFTestTests/Pods-FFFTestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AF19D50862D7E98ABAE8ED49 /* Pods_FFFTestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FFFTestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA4D3E7CB938C7E29D8D3DD0 /* Pods-FFFTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FFFTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-FFFTest/Pods-FFFTest.release.xcconfig"; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				85345CB91E38DD8600729CC9 /* Result.swift */,
 				85345CD71E39036900729CC9 /* FlickrPhoto.swift */,
 				85345CD91E3903D200729CC9 /* FlickrImageSize.swift */,
+				85478EF61E3965F5000B0AC0 /* Reusable.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -617,6 +620,7 @@
 				85478EEC1E3930BB000B0AC0 /* PhotoCell.swift in Sources */,
 				85345CD81E39036900729CC9 /* FlickrPhoto.swift in Sources */,
 				85345CCA1E38E3B600729CC9 /* Typealias.swift in Sources */,
+				85478EF71E3965F5000B0AC0 /* Reusable.swift in Sources */,
 				85478EEF1E3937CC000B0AC0 /* ImageDetailViewController.swift in Sources */,
 				85478EF11E3937EC000B0AC0 /* ListViewController.swift in Sources */,
 				85345C6C1E38A89000729CC9 /* AppDelegate.swift in Sources */,

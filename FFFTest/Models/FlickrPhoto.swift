@@ -10,26 +10,29 @@ import Foundation
 
 struct FlickrPhoto {
     
+    let id: String
     private let farmId: Int
     private let serverId: String
-    private let photoId: String
-    private let secret: String
+    let secret: String
+    
+    private let baseUrlString: String
     
     init?(json: JSON) {
-       guard let farmId = json["farm"] as? Int,
+       guard let id = json["id"] as? String,
+            let farmId = json["farm"] as? Int,
             let serverId = json["server"] as? String,
-            let photoId = json["id"] as? String,
             let secret = json["secret"] as? String
         else { return nil }
         
         self.farmId = farmId
         self.serverId = serverId
-        self.photoId = photoId
+        self.id = id
         self.secret = secret
+        baseUrlString = "https://farm\(farmId).staticflickr.com/\(serverId)/\(id)_\(secret)"
     }
     
     func url(for size: FlickrImageSize) -> URL {
-        return URL(string: "https://farm\(farmId).staticflickr.com/\(serverId)/\(photoId)_\(secret)_\(size.rawValue).jpg")!
+        return URL(string: "\(baseUrlString)_\(size.rawValue).jpg")!
     }
 }
 

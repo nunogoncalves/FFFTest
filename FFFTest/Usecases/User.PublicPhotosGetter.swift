@@ -10,7 +10,7 @@ import Foundation
 
 extension Users {
     
-    class PublicPhotosGetter : URLRequestOptionsOwner,
+    final class PublicPhotosGetter : URLRequestOptionsOwner,
                                HTTPGET,
                                ResponseHandler {
     

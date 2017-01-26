@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -51,6 +52,7 @@
                                                 </imageView>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" red="0.28627450980000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="Jo8-gF-irS" firstAttribute="leading" secondItem="xov-sz-kXm" secondAttribute="leading" id="PMX-fj-Wl7"/>
                                             <constraint firstAttribute="bottom" secondItem="Jo8-gF-irS" secondAttribute="bottom" id="UY7-LJ-qPN"/>
@@ -117,27 +119,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5y-OC-2BS">
+                                <rect key="frame" x="10" y="185" width="355" height="0.0"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.25490197539999998" green="0.27450981740000002" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ1-Y0-Mfw">
-                                <rect key="frame" x="67" y="269" width="240" height="128"/>
+                                <rect key="frame" x="0.0" y="193" width="375" height="281"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="7Jz-0d-2sb"/>
-                                    <constraint firstAttribute="height" constant="128" id="Jon-Xj-VpF"/>
+                                    <constraint firstAttribute="width" secondItem="ZZ1-Y0-Mfw" secondAttribute="height" multiplier="4:3" id="pUn-n6-MEz"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CLH-9C-3y7">
+                                <rect key="frame" x="10" y="482" width="355" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ZZ1-Y0-Mfw" firstAttribute="leading" secondItem="uiF-5h-aRL" secondAttribute="leading" id="2r8-uB-J43"/>
+                            <constraint firstItem="d5y-OC-2BS" firstAttribute="leading" secondItem="uiF-5h-aRL" secondAttribute="leading" constant="10" id="834-E0-2Z2"/>
+                            <constraint firstAttribute="trailing" secondItem="ZZ1-Y0-Mfw" secondAttribute="trailing" id="BdP-d9-oV2"/>
+                            <constraint firstItem="ZZ1-Y0-Mfw" firstAttribute="top" secondItem="d5y-OC-2BS" secondAttribute="bottom" constant="8" id="Cx0-QX-jye"/>
+                            <constraint firstItem="CLH-9C-3y7" firstAttribute="leading" secondItem="d5y-OC-2BS" secondAttribute="leading" id="Hi6-bB-ixh"/>
                             <constraint firstItem="ZZ1-Y0-Mfw" firstAttribute="centerY" secondItem="uiF-5h-aRL" secondAttribute="centerY" id="Lpo-e4-OCP"/>
+                            <constraint firstItem="CLH-9C-3y7" firstAttribute="top" secondItem="ZZ1-Y0-Mfw" secondAttribute="bottom" constant="8" id="SpJ-DP-PFN"/>
                             <constraint firstItem="ZZ1-Y0-Mfw" firstAttribute="centerX" secondItem="uiF-5h-aRL" secondAttribute="centerX" id="f7E-6L-7h0"/>
+                            <constraint firstAttribute="trailing" secondItem="d5y-OC-2BS" secondAttribute="trailing" constant="10" id="pQo-Vw-nxY"/>
+                            <constraint firstItem="CLH-9C-3y7" firstAttribute="trailing" secondItem="d5y-OC-2BS" secondAttribute="trailing" id="th2-sM-wqc"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="descriptionLabel" destination="CLH-9C-3y7" id="Jt6-NS-Ogf"/>
                         <outlet property="imageView" destination="ZZ1-Y0-Mfw" id="47S-yu-b1r"/>
+                        <outlet property="titleLabel" destination="d5y-OC-2BS" id="C8A-dN-hff"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vtu-kb-7a2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1690" y="66"/>
+            <point key="canvasLocation" x="1688.8" y="65.217391304347828"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3Xl-1g-8GM">

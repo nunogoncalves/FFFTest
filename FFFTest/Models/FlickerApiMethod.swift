@@ -10,6 +10,7 @@ enum FlickrApiMethod : String {
     
     case peoplePublicPhotos = "flickr.people.getPublicPhotos"
     case peopleFindByName = "flickr.people.findByUsername"
+    case getPhotoInfo = "flickr.photos.getInfo"
     
 }
 

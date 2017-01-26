@@ -48,12 +48,12 @@ extension Users {
                     if let user = User(json: userJson) {
                         self?.resultAction?(Result<User>.success(user))
                     } else {
-                        self?.resultAction?(Result<User>.failure(UserError.notParseable))
+                        self?.resultAction?(Result<User>.failure(.notParseable))
                     }
                 }
             } else {
                 DispatchQueue.main.async { [weak self] in
-                    self?.resultAction?(Result<User>.failure(UserError.notFound))
+                    self?.resultAction?(Result<User>.failure(.notFound))
                 }
             }
         }

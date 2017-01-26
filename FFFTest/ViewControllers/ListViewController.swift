@@ -43,17 +43,20 @@ class ListViewController: UIViewController {
         loadingIndicator.hidesWhenStopped = true
         
         collectionViewLayout.minimumInteritemSpacing = 1
+        collectionViewLayout.minimumLineSpacing = 1
         applyItemSize(basedOn: traitCollection)
         photosCollectionView.collectionViewLayout = collectionViewLayout
+        
+        searchUser(named: "almsaeed")
     }
     
     private func applyItemSize(basedOn newTraitCollection: UITraitCollection) {
         let itemsPerRow = CGFloat(itemsPerHorizontalSizeClass[newTraitCollection.horizontalSizeClass] ?? defaultItemsPerRow)
         let itemWitdh: CGFloat
         if newTraitCollection == traitCollection {
-            itemWitdh = view.frame.width / itemsPerRow - (itemsPerRow - 1)
+            itemWitdh = (view.frame.width / itemsPerRow) - (itemsPerRow - 1)
         } else {
-            itemWitdh = view.frame.height / itemsPerRow - (itemsPerRow - 1)
+            itemWitdh = (view.frame.height / itemsPerRow) - (itemsPerRow - 1)
         }
         collectionViewLayout.itemSize = CGSize(width: itemWitdh, height: itemWitdh)
     }
@@ -86,14 +89,10 @@ class ListViewController: UIViewController {
                 self?.loadPhotos(for: user)
             case .failure(let error):
                 self?.loadingIndicator.stopAnimating()
-                if error is UserError {
-                    switch error as! UserError {
-                    case .notFound:
-                        self?.loadingLabel.text = "User not found"
-                    default:
-                        self?.loadingLabel.text = "An error occurred and it was not possible to load the user"
-                    }
-                } else {
+                switch error {
+                case .notFound:
+                    self?.loadingLabel.text = "User not found"
+                default:
                     self?.loadingLabel.text = "An error occurred and it was not possible to load the user"
                 }
             }

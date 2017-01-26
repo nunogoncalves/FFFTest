@@ -40,6 +40,7 @@
 		85478EEC1E3930BB000B0AC0 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85478EEB1E3930BB000B0AC0 /* PhotoCell.swift */; };
 		85478EEF1E3937CC000B0AC0 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85478EEE1E3937CC000B0AC0 /* ImageDetailViewController.swift */; };
 		85478EF11E3937EC000B0AC0 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85478EF01E3937EC000B0AC0 /* ListViewController.swift */; };
+		85478EF31E395DC5000B0AC0 /* PhotoSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85478EF21E395DC5000B0AC0 /* PhotoSet.swift */; };
 		85478EF51E39642E000B0AC0 /* Nuke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85478EF41E39642E000B0AC0 /* Nuke.framework */; };
 		85478EF71E3965F5000B0AC0 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85478EF61E3965F5000B0AC0 /* Reusable.swift */; };
 		BA9AABFF2933EC9FE8CD53DE /* Pods_FFFTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD08917537F71D85D5AE926 /* Pods_FFFTestUITests.framework */; };
@@ -105,6 +106,7 @@
 		85478EEB1E3930BB000B0AC0 /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoCell.swift; path = Views/Cells/PhotoCell.swift; sourceTree = "<group>"; };
 		85478EEE1E3937CC000B0AC0 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageDetailViewController.swift; path = ViewControllers/ImageDetailViewController.swift; sourceTree = "<group>"; };
 		85478EF01E3937EC000B0AC0 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewController.swift; path = ViewControllers/ListViewController.swift; sourceTree = "<group>"; };
+		85478EF21E395DC5000B0AC0 /* PhotoSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoSet.swift; path = Models/PhotoSet.swift; sourceTree = "<group>"; };
 		85478EF41E39642E000B0AC0 /* Nuke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nuke.framework; path = "Pods/../build/Debug-iphoneos/Nuke/Nuke.framework"; sourceTree = "<group>"; };
 		85478EF61E3965F5000B0AC0 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reusable.swift; path = Models/Reusable.swift; sourceTree = "<group>"; };
 		88DAD57BBCB160377C683D45 /* Pods-FFFTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FFFTestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FFFTestTests/Pods-FFFTestTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -226,12 +228,13 @@
 			isa = PBXGroup;
 			children = (
 				85345CD51E38FE4100729CC9 /* FlickerApiMethod.swift */,
-				85345C991E38AAAD00729CC9 /* User.swift */,
 				85345CA51E38AE4800729CC9 /* FlickrCredentials.swift */,
-				85345CB91E38DD8600729CC9 /* Result.swift */,
-				85345CD71E39036900729CC9 /* FlickrPhoto.swift */,
 				85345CD91E3903D200729CC9 /* FlickrImageSize.swift */,
+				85345CD71E39036900729CC9 /* FlickrPhoto.swift */,
+				85478EF21E395DC5000B0AC0 /* PhotoSet.swift */,
+				85345CB91E38DD8600729CC9 /* Result.swift */,
 				85478EF61E3965F5000B0AC0 /* Reusable.swift */,
+				85345C991E38AAAD00729CC9 /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -629,6 +632,7 @@
 				85345CD61E38FE4100729CC9 /* FlickerApiMethod.swift in Sources */,
 				85345CD41E38F51F00729CC9 /* RequestEncoding.swift in Sources */,
 				85345CAC1E38B3DD00729CC9 /* User.PublicPhotosGetter.swift in Sources */,
+				85478EF31E395DC5000B0AC0 /* PhotoSet.swift in Sources */,
 				85345CD21E38E90000729CC9 /* DataToJSONConverter.swift in Sources */,
 				85345CDA1E3903D200729CC9 /* FlickrImageSize.swift in Sources */,
 				85345CC01E38DEF100729CC9 /* ResponseValidator.swift in Sources */,

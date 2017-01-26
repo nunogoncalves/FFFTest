@@ -40,6 +40,7 @@
 		85478EEC1E3930BB000B0AC0 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85478EEB1E3930BB000B0AC0 /* PhotoCell.swift */; };
 		85478EEF1E3937CC000B0AC0 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85478EEE1E3937CC000B0AC0 /* ImageDetailViewController.swift */; };
 		85478EF11E3937EC000B0AC0 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85478EF01E3937EC000B0AC0 /* ListViewController.swift */; };
+		85478EF51E39642E000B0AC0 /* Nuke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85478EF41E39642E000B0AC0 /* Nuke.framework */; };
 		BA9AABFF2933EC9FE8CD53DE /* Pods_FFFTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD08917537F71D85D5AE926 /* Pods_FFFTestUITests.framework */; };
 /* End PBXBuildFile section */
 

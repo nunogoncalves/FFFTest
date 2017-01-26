@@ -14,6 +14,7 @@ class ListViewController: UIViewController {
     @IBOutlet weak var photosCollectionView: UICollectionView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var loadingLabel: UILabel!
+    @IBOutlet weak var noNetworkTopConstraint: NSLayoutConstraint!
     
     fileprivate let userSearcher = Users.Searcher()
     fileprivate var photoSet = PhotoSet.empty
@@ -91,7 +92,10 @@ class ListViewController: UIViewController {
                 self?.loadingIndicator.stopAnimating()
                 switch error {
                 case .notFound:
+                    self?.loadingIndicator.stopAnimating()
                     self?.loadingLabel.text = "User not found"
+                case .noNetwork:
+                    self?.loadingLabel.text = "You are not connected to the internet"
                 default:
                     self?.loadingLabel.text = "An error occurred and it was not possible to load the user"
                 }
@@ -100,6 +104,11 @@ class ListViewController: UIViewController {
     }
     
     fileprivate func loadPhotos(for user: User, in page: Int = 0) {
+        noNetworkTopConstraint.constant = -30
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
+        
         Users.PublicPhotosGetter(user: user).getPublicPhotos(in: page) { [weak self] result in
             guard let s = self else { return }
             s.loadingIndicator.stopAnimating()
@@ -120,8 +129,19 @@ class ListViewController: UIViewController {
                                           photos: currentPhotosList)
                 }
                 self?.photosCollectionView.reloadData()
-            case .failure(_):
-                s.loadingLabel.text = "There was an error loading this user's photos."
+            case .failure(let error):
+                if error == .noNetwork {
+                    if page != 0 {
+                        self?.noNetworkTopConstraint.constant = 0
+                        UIView.animate(withDuration: 0.2) {
+                            self?.view.layoutIfNeeded()
+                        }
+                    } else {
+                        s.loadingLabel.text = "You are not conected to the internet."
+                    }
+                } else {
+                    s.loadingLabel.text = "There was an error loading this user's photos."
+                }
             }
         }
     }

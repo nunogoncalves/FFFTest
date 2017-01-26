@@ -8,6 +8,7 @@
 
 enum FFError : Error {
     
+    case noNetwork
     case notFound
     case notParseable
     

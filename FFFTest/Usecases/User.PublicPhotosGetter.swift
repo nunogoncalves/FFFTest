@@ -70,10 +70,15 @@ extension Users {
         }
         
         public func failure(status: NetworkStatus, data: Data?) {
-            print("failure \(data)")
+            if status == .offline {
+                DispatchQueue.main.async { [weak self] in
+                    self?.resultAction?(Result<PhotoSet>.failure(.noNetwork))
+                }
+                return
+            }
+            
             if let data = data {
                 let json = jsonifier.json(from: data)
-                print("json: \(json)")
                 
             }
         }

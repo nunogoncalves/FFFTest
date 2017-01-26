@@ -59,9 +59,14 @@ extension Users {
         }
         
         public func failure(status: NetworkStatus, data: Data?) {
+            if status == .offline {
+                DispatchQueue.main.async { [weak self] in
+                    self?.resultAction?(Result<User>.failure(.noNetwork))
+                }
+                return
+            }
             if let data = data {
                 let json = jsonifier.json(from: data)
-                print(json)
 //                let responseError = ResponseError(networkStatus: status, responseDictionary: json)
 //                log(responseError: responseError)
 //                resultAction(Result<[Person]>.failure(responseError))

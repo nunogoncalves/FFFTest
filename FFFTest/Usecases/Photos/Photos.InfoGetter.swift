@@ -1,5 +1,5 @@
 //
-//  InfoGetter.swift
+//  Photos.InfoGetter.swift
 //  FFFTest
 //
 //  Created by Nuno Gonçalves on 26/01/17.
@@ -53,7 +53,6 @@ extension Photos {
             if let json = jsonifier.json(from: data),
                 let photoDic = json["photo"] as? JSON,
                 let photoDetails = FlickrPhotoDetails(json: photoDic) {
-                print(photoDetails)
                 DispatchQueue.main.async {
                     self.resultAction?(Result.success(photoDetails))
                 }

@@ -17,11 +17,10 @@
 		85345C711E38A89000729CC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85345C6F1E38A89000729CC9 /* Main.storyboard */; };
 		85345C731E38A89000729CC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85345C721E38A89000729CC9 /* Assets.xcassets */; };
 		85345C761E38A89000729CC9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85345C741E38A89000729CC9 /* LaunchScreen.storyboard */; };
-		85345C811E38A89000729CC9 /* FFFTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85345C801E38A89000729CC9 /* FFFTestTests.swift */; };
+		85345C811E38A89000729CC9 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85345C801E38A89000729CC9 /* UserTests.swift */; };
 		85345C8C1E38A89000729CC9 /* FFFTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85345C8B1E38A89000729CC9 /* FFFTestUITests.swift */; };
 		85345C9A1E38AAAD00729CC9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85345C991E38AAAD00729CC9 /* User.swift */; };
 		85345CA21E38ACE400729CC9 /* Flickr.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85345CA11E38ACE400729CC9 /* Flickr.plist */; };
-		85345CA41E38AD0000729CC9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85345CA31E38AD0000729CC9 /* Info.plist */; };
 		85345CA61E38AE4800729CC9 /* FlickrCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85345CA51E38AE4800729CC9 /* FlickrCredentials.swift */; };
 		85345CA81E38B0F800729CC9 /* Users.Searcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85345CA71E38B0F800729CC9 /* Users.Searcher.swift */; };
 		85345CAC1E38B3DD00729CC9 /* User.PublicPhotosGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85345CAB1E38B3DD00729CC9 /* User.PublicPhotosGetter.swift */; };
@@ -84,7 +83,7 @@
 		85345C721E38A89000729CC9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85345C751E38A89000729CC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85345C7C1E38A89000729CC9 /* FFFTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FFFTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		85345C801E38A89000729CC9 /* FFFTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFFTestTests.swift; sourceTree = "<group>"; };
+		85345C801E38A89000729CC9 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		85345C821E38A89000729CC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85345C871E38A89000729CC9 /* FFFTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FFFTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85345C8B1E38A89000729CC9 /* FFFTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFFTestUITests.swift; sourceTree = "<group>"; };
@@ -217,7 +216,7 @@
 		85345C7F1E38A89000729CC9 /* FFFTestTests */ = {
 			isa = PBXGroup;
 			children = (
-				85345C801E38A89000729CC9 /* FFFTestTests.swift */,
+				85345C801E38A89000729CC9 /* UserTests.swift */,
 				85345C821E38A89000729CC9 /* Info.plist */,
 			);
 			path = FFFTestTests;
@@ -465,7 +464,6 @@
 				85345C761E38A89000729CC9 /* LaunchScreen.storyboard in Resources */,
 				85345CA21E38ACE400729CC9 /* Flickr.plist in Resources */,
 				85345C731E38A89000729CC9 /* Assets.xcassets in Resources */,
-				85345CA41E38AD0000729CC9 /* Info.plist in Resources */,
 				85345C711E38A89000729CC9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -666,7 +664,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85345C811E38A89000729CC9 /* FFFTestTests.swift in Sources */,
+				85345C811E38A89000729CC9 /* UserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,10 +810,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9D23XSN84S;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos/Nuke",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = FFFTest/Configuration/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.numicago.FFFTest;
@@ -830,10 +825,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9D23XSN84S;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos/Nuke",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = FFFTest/Configuration/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.numicago.FFFTest;

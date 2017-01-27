@@ -15,7 +15,6 @@ public struct DataToJSONConverter {
             do {
                 return try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? JSON
             } catch {
-                print("failed \(error)")
                 return nil
             }
         }

@@ -138,7 +138,6 @@ final class ListViewController: UIViewController {
     }
     
     fileprivate func got(_ photoSet: PhotoSet) {
-        print("got")
         searchingPhotos = false
         if photoSet.isEmpty {
             loadingLabel.isHidden = false

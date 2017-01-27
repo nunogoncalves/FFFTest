@@ -38,6 +38,8 @@ extension Users {
         private let user: User
         private var page = 0
         
+        var caller: NetworkCaller?
+        
         private var resultAction: ((Result<PhotoSet>) -> Void)?
         
         init(user: User) {
@@ -49,7 +51,11 @@ extension Users {
             self.page = page
             DispatchQueue.global(qos: .userInteractive).async {
                 let request = URLRequestBuilder(requestOptionsOwner: self).build()
-                NetworkCaller(request: request, responseHandler: self).makeTheCall()
+                if let caller = self.caller {
+                    caller.makeTheCall()
+                } else {
+                    NetworkCaller(request: request, responseHandler: self).makeTheCall()
+                }
             }
         }
         
@@ -62,26 +68,24 @@ extension Users {
                 
                 let photos = photosDic.flatMap { FlickrPhoto(json: $0) }
                 let photoSet = PhotoSet(currentPage: currentPage, totalPages: totalPages, photos: photos)
-                DispatchQueue.main.async {
-                    self.resultAction?(Result.success(photoSet))
-                }
+                callResultActionInMainQueue(Result.success(photoSet))
             } else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.resultAction?(Result<PhotoSet>.failure(.notParseable))
-                }
+                callResultActionInMainQueue(Result<PhotoSet>.failure(.notParseable))
             }
         }
     
         func failure(status: NetworkStatus, data: Data?) {
             if status == .offline {
-                DispatchQueue.main.async { [weak self] in
-                    self?.resultAction?(Result<PhotoSet>.failure(.noNetwork))
-                }
+                callResultActionInMainQueue(Result<PhotoSet>.failure(.noNetwork))
                 return
             }
             
+            callResultActionInMainQueue(Result<PhotoSet>.failure(.generic))
+        }
+        
+        private func callResultActionInMainQueue(_ result: Result<PhotoSet>) {
             DispatchQueue.main.async { [weak self] in
-                self?.resultAction?(Result<PhotoSet>.failure(.generic))
+                self?.resultAction?(result)
             }
         }
     }

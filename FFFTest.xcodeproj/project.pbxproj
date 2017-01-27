@@ -20,6 +20,8 @@
 		8511D72D1E3BACA600AEAF2B /* FlickrPhotoDetailsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8511D72C1E3BACA600AEAF2B /* FlickrPhotoDetailsTests.swift */; };
 		8511D7331E3BB9EC00AEAF2B /* NetworkCallerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8511D7321E3BB9EC00AEAF2B /* NetworkCallerTests.swift */; };
 		8511D7361E3BC2C100AEAF2B /* Users.SearcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8511D7351E3BC2C100AEAF2B /* Users.SearcherTests.swift */; };
+		8511D7381E3BE17000AEAF2B /* URLRequestBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8511D7371E3BE17000AEAF2B /* URLRequestBuilderTests.swift */; };
+		8511D73A1E3BF71500AEAF2B /* User.PublicPhotosGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8511D7391E3BF71500AEAF2B /* User.PublicPhotosGetter.swift */; };
 		85345C6C1E38A89000729CC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85345C6B1E38A89000729CC9 /* AppDelegate.swift */; };
 		85345C711E38A89000729CC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85345C6F1E38A89000729CC9 /* Main.storyboard */; };
 		85345C731E38A89000729CC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85345C721E38A89000729CC9 /* Assets.xcassets */; };
@@ -90,6 +92,8 @@
 		8511D72C1E3BACA600AEAF2B /* FlickrPhotoDetailsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlickrPhotoDetailsTests.swift; path = Models/FlickrPhotoDetailsTests.swift; sourceTree = "<group>"; };
 		8511D7321E3BB9EC00AEAF2B /* NetworkCallerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkCallerTests.swift; path = Usecases/Network/NetworkCallerTests.swift; sourceTree = "<group>"; };
 		8511D7351E3BC2C100AEAF2B /* Users.SearcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Users.SearcherTests.swift; path = Usecases/Users/Users.SearcherTests.swift; sourceTree = "<group>"; };
+		8511D7371E3BE17000AEAF2B /* URLRequestBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLRequestBuilderTests.swift; path = Usecases/Network/URLRequestBuilderTests.swift; sourceTree = "<group>"; };
+		8511D7391E3BF71500AEAF2B /* User.PublicPhotosGetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.PublicPhotosGetter.swift; path = Usecases/Users/User.PublicPhotosGetter.swift; sourceTree = "<group>"; };
 		85345C681E38A89000729CC9 /* FFFTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FFFTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85345C6B1E38A89000729CC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85345C701E38A89000729CC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				8511D7321E3BB9EC00AEAF2B /* NetworkCallerTests.swift */,
+				8511D7371E3BE17000AEAF2B /* URLRequestBuilderTests.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				8511D7351E3BC2C100AEAF2B /* Users.SearcherTests.swift */,
+				8511D7391E3BF71500AEAF2B /* User.PublicPhotosGetter.swift */,
 			);
 			name = Users;
 			sourceTree = "<group>";
@@ -727,6 +733,8 @@
 				8511D72D1E3BACA600AEAF2B /* FlickrPhotoDetailsTests.swift in Sources */,
 				8511D7361E3BC2C100AEAF2B /* Users.SearcherTests.swift in Sources */,
 				8511D71F1E3B8E0800AEAF2B /* PhotoSetTests.swift in Sources */,
+				8511D73A1E3BF71500AEAF2B /* User.PublicPhotosGetter.swift in Sources */,
+				8511D7381E3BE17000AEAF2B /* URLRequestBuilderTests.swift in Sources */,
 				8511D7231E3B8E5500AEAF2B /* FlickrImageSizeTests.swift in Sources */,
 				8511D7331E3BB9EC00AEAF2B /* NetworkCallerTests.swift in Sources */,
 			);

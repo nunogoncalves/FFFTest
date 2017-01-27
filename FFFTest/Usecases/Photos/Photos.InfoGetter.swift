@@ -57,12 +57,16 @@ extension Photos {
                     self.resultAction?(Result.success(photoDetails))
                 }
             } else {
-                self.resultAction?(Result.failure(.notParseable))
+                DispatchQueue.main.async {
+                    self.resultAction?(Result.failure(.notParseable))
+                }
             }
         }
         
         func failure(status: NetworkStatus, data: Data?) {
-            self.resultAction?(Result.failure(.notFound))
+            DispatchQueue.main.async {
+                self.resultAction?(Result.failure(.notFound))
+            }
         }
         
     }

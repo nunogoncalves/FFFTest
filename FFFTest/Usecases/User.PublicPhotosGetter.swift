@@ -35,8 +35,8 @@ extension Users {
         
         private let jsonifier = DataToJSONConverter.self
         
-        let user: User
-        var page = 0
+        private let user: User
+        private var page = 0
         
         private var resultAction: ((Result<PhotoSet>) -> Void)?
         
@@ -47,29 +47,32 @@ extension Users {
         func getPublicPhotos(in page: Int = 0, resultAction: @escaping (Result<PhotoSet>) -> Void) {
             self.resultAction = resultAction
             self.page = page
-            DispatchQueue.global().async {
+            DispatchQueue.global(qos: .userInteractive).async {
                 let request = URLRequestBuilder(requestOptionsOwner: self).build()
                 NetworkCaller(request: request, responseHandler: self).makeTheCall()
             }
         }
         
-        public func success(data: Data) {
+        func success(data: Data) {
             if let json = jsonifier.json(from: data),
-                let resultDic = json["photos"] as? JSON {
-                if let photosDic = resultDic["photo"] as? [JSON],
-                    let currentPage = resultDic["page"] as? Int,
-                    let totalPages = resultDic["pages"] as? Int {
-                    let photos = photosDic.flatMap { FlickrPhoto(json: $0) }
-                    let photoSet = PhotoSet(currentPage: currentPage, totalPages: totalPages, photos: photos)
-                    DispatchQueue.main.async {
-                        self.resultAction?(Result.success(photoSet))
-                    }
-                }
+                let resultDic = json["photos"] as? JSON,
+                let photosDic = resultDic["photo"] as? [JSON],
+                let currentPage = resultDic["page"] as? Int,
+                let totalPages = resultDic["pages"] as? Int {
                 
+                let photos = photosDic.flatMap { FlickrPhoto(json: $0) }
+                let photoSet = PhotoSet(currentPage: currentPage, totalPages: totalPages, photos: photos)
+                DispatchQueue.main.async {
+                    self.resultAction?(Result.success(photoSet))
+                }
+            } else {
+                DispatchQueue.main.async { [weak self] in
+                    self?.resultAction?(Result<PhotoSet>.failure(.notParseable))
+                }
             }
         }
-        
-        public func failure(status: NetworkStatus, data: Data?) {
+    
+        func failure(status: NetworkStatus, data: Data?) {
             if status == .offline {
                 DispatchQueue.main.async { [weak self] in
                     self?.resultAction?(Result<PhotoSet>.failure(.noNetwork))
@@ -77,9 +80,8 @@ extension Users {
                 return
             }
             
-            if let data = data {
-                let json = jsonifier.json(from: data)
-                
+            DispatchQueue.main.async { [weak self] in
+                self?.resultAction?(Result<PhotoSet>.failure(.generic))
             }
         }
     }

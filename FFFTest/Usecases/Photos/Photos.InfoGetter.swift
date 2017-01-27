@@ -43,7 +43,7 @@ extension Photos {
         
         func getPhotoInfo(resultAction: @escaping (Result<FlickrPhotoDetails>) -> Void) {
             self.resultAction = resultAction
-            DispatchQueue.global().async {
+            DispatchQueue.global(qos: .userInteractive).async {
                 let request = URLRequestBuilder(requestOptionsOwner: self).build()
                 NetworkCaller(request: request, responseHandler: self).makeTheCall()
             }

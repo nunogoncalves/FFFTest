@@ -44,10 +44,12 @@ extension Users {
     
         public func success(data: Data) {
             if let userJson = jsonifier.json(from: data)?["user"] as? JSON {
-                DispatchQueue.main.async { [weak self] in
-                    if let user = User(json: userJson) {
+                if let user = User(json: userJson) {
+                    DispatchQueue.main.async { [weak self] in
                         self?.resultAction?(Result<User>.success(user))
-                    } else {
+                    }
+                } else {
+                    DispatchQueue.main.async { [weak self] in
                         self?.resultAction?(Result<User>.failure(.notParseable))
                     }
                 }
@@ -63,17 +65,10 @@ extension Users {
                 DispatchQueue.main.async { [weak self] in
                     self?.resultAction?(Result<User>.failure(.noNetwork))
                 }
-                return
-            }
-            if let data = data {
-                let json = jsonifier.json(from: data)
-//                let responseError = ResponseError(networkStatus: status, responseDictionary: json)
-//                log(responseError: responseError)
-//                resultAction(Result<[Person]>.failure(responseError))
-//            } else {
-//                let responseError = ResponseError(networkStatus: status, responseDictionary: nil)
-//                log(responseError: responseError)
-//                resultAction(Result<[Person]>.failure(responseError))
+            } else {
+                DispatchQueue.main.async { [weak self] in
+                    self?.resultAction?(Result<User>.failure(.noNetwork))
+                }
             }
         }
     }

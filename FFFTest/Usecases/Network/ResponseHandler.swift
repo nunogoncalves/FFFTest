@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol ResponseHandler {
+protocol ResponseHandler {
     
     func success(data: Data)
     func failure(status: NetworkStatus, data: Data?)

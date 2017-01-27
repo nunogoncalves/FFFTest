@@ -9,7 +9,7 @@
 import Foundation
 import UIKit //This is a big code smell...
 
-public struct NetworkCaller {
+struct NetworkCaller {
     
     private let session: URLSession
     private let request: URLRequest
@@ -17,16 +17,16 @@ public struct NetworkCaller {
     
     private static let defaultSession = URLSession(configuration: .default)
     
-    public init(session: URLSession = NetworkCaller.defaultSession,
-                request: URLRequest,
-                responseHandler: ResponseHandler) {
+    init(session: URLSession = NetworkCaller.defaultSession,
+         request: URLRequest,
+         responseHandler: ResponseHandler) {
         
         self.session = session
         self.request = request
         self.responseHandler = responseHandler
     }
     
-    public func makeTheCall() {
+    func makeTheCall() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         session.dataTask(with: request, completionHandler: responseHandler).resume()
     }

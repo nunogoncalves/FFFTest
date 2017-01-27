@@ -23,7 +23,7 @@ struct PhotoSet {
     }
     
     var isLastPage: Bool {
-        return hasMorePages
+        return !hasMorePages
     }
     
     static let empty = PhotoSet(currentPage: 0, totalPages: 0, photos: [])

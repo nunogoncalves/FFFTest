@@ -11,12 +11,12 @@ import Nuke
 
 class ImageDetailViewController: UIViewController {
 
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var loadingContainer: UIView!
-    @IBOutlet weak var loadingLabel: UILabel!
-    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var imageView: UIImageView!
+    @IBOutlet fileprivate weak var titleLabel: UILabel!
+    @IBOutlet fileprivate weak var descriptionLabel: UILabel!
+    @IBOutlet fileprivate weak var loadingContainer: UIView!
+    @IBOutlet fileprivate weak var stateLabel: UILabel!
+    @IBOutlet fileprivate weak var loadingIndicator: UIActivityIndicatorView!
 
     var flickrPhoto: FlickrPhoto?
     
@@ -31,9 +31,9 @@ class ImageDetailViewController: UIViewController {
                 case .success(let photoDetails):
                     self?.got(photoDetails: photoDetails)
                     self?.loadingContainer.isHidden = true
-                case .failure(let _):
+                case .failure(_):
                     self?.loadingContainer.isHidden = false
-                    self?.loadingLabel.text = "Failed"
+                    self?.stateLabel.text = "Failed"
                 }
             }
         }

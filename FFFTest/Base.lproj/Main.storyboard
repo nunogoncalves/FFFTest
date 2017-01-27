@@ -83,7 +83,7 @@
                                     <constraint firstAttribute="height" constant="30" id="wEQ-6P-ELK"/>
                                 </constraints>
                             </view>
-                            <searchBar contentMode="redraw" placeholder="Search for a user" translatesAutoresizingMaskIntoConstraints="NO" id="po8-CH-h2T">
+                            <searchBar contentMode="redraw" text="almsaeed" placeholder="Search for a user" translatesAutoresizingMaskIntoConstraints="NO" id="po8-CH-h2T">
                                 <rect key="frame" x="0.0" y="64" width="414" height="44"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
@@ -96,6 +96,15 @@
                                 <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyc-mQ-nnC">
+                                <rect key="frame" x="180.66666666666666" y="443" width="53" height="30"/>
+                                <state key="normal" title="Refresh">
+                                    <color key="titleColor" red="0.28627450980000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="refreshTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="aUE-7T-OUw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -106,11 +115,13 @@
                             <constraint firstAttribute="trailing" secondItem="po8-CH-h2T" secondAttribute="trailing" id="J39-Kr-96y"/>
                             <constraint firstAttribute="trailing" secondItem="04d-vr-X9A" secondAttribute="trailing" constant="10" id="J8e-Nl-68C"/>
                             <constraint firstItem="W6F-Vs-FPB" firstAttribute="top" secondItem="po8-CH-h2T" secondAttribute="bottom" constant="-30" id="P3o-Nu-Iuf"/>
+                            <constraint firstItem="iyc-mQ-nnC" firstAttribute="centerX" secondItem="04d-vr-X9A" secondAttribute="centerX" id="PsJ-PN-uls"/>
                             <constraint firstItem="po8-CH-h2T" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Qvf-SQ-UR4"/>
                             <constraint firstItem="W6F-Vs-FPB" firstAttribute="trailing" secondItem="po8-CH-h2T" secondAttribute="trailing" id="U7S-me-sO1"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="KcC-mk-2Rv" secondAttribute="bottom" id="Wi5-tk-Su1"/>
                             <constraint firstItem="KcC-mk-2Rv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bmt-zA-oTf"/>
                             <constraint firstItem="KcC-mk-2Rv" firstAttribute="top" secondItem="po8-CH-h2T" secondAttribute="bottom" id="d4R-yw-yvo"/>
+                            <constraint firstItem="iyc-mQ-nnC" firstAttribute="top" secondItem="04d-vr-X9A" secondAttribute="bottom" constant="7.3333333333333144" id="fGv-FA-Kim"/>
                             <constraint firstItem="f2S-pl-Ioi" firstAttribute="centerX" secondItem="04d-vr-X9A" secondAttribute="centerX" id="sLg-Qi-1FZ"/>
                             <constraint firstAttribute="trailing" secondItem="KcC-mk-2Rv" secondAttribute="trailing" id="wjP-rf-C7c"/>
                             <constraint firstItem="po8-CH-h2T" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="zBf-hf-Fiy"/>
@@ -122,6 +133,7 @@
                         <outlet property="loadingLabel" destination="04d-vr-X9A" id="PiM-dz-O9x"/>
                         <outlet property="noNetworkTopConstraint" destination="P3o-Nu-Iuf" id="nYz-hc-Trr"/>
                         <outlet property="photosCollectionView" destination="KcC-mk-2Rv" id="izQ-yX-bRh"/>
+                        <outlet property="refreshButton" destination="iyc-mQ-nnC" id="wWp-7P-QED"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -303,7 +315,7 @@
                         <outlet property="imageView" destination="ZZ1-Y0-Mfw" id="47S-yu-b1r"/>
                         <outlet property="loadingContainer" destination="ek4-HZ-tlL" id="ZUJ-9F-MmO"/>
                         <outlet property="loadingIndicator" destination="9KL-F1-ZBi" id="DEe-eG-Cbe"/>
-                        <outlet property="loadingLabel" destination="fRe-E0-I3w" id="qeE-Qj-JCx"/>
+                        <outlet property="stateLabel" destination="fRe-E0-I3w" id="4u6-g0-v18"/>
                         <outlet property="titleLabel" destination="d5y-OC-2BS" id="C8A-dN-hff"/>
                     </connections>
                 </viewController>

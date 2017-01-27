@@ -9,21 +9,27 @@
 import UIKit
 import Nuke
 
-class ListViewController: UIViewController {
+final class ListViewController: UIViewController {
     
-    @IBOutlet weak var photosCollectionView: UICollectionView!
-    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var loadingLabel: UILabel!
-    @IBOutlet weak var noNetworkTopConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var photosCollectionView: UICollectionView!
+    @IBOutlet fileprivate weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var loadingLabel: UILabel!
+    @IBOutlet fileprivate weak var noNetworkTopConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var refreshButton: UIButton!
+    
+    @IBAction fileprivate func refreshTapped() {
+        searchUser(named: lastNameSearched)
+    }
     
     fileprivate let userSearcher = Users.Searcher()
-    fileprivate var photoSet = PhotoSet.empty
     fileprivate var lastNameSearched = ""
     fileprivate var user: User?
+    fileprivate var photoSet = PhotoSet.empty
+    fileprivate var searchingPhotos = false
     
-    private let collectionViewLayout = UICollectionViewFlowLayout()
+    fileprivate let collectionViewLayout = UICollectionViewFlowLayout()
     
-    private let defaultItemsPerRow = 5
+    fileprivate let defaultItemsPerRow = 5
 
     fileprivate var flickrImageSize: FlickrImageSize {
         switch traitCollection.horizontalSizeClass {
@@ -32,7 +38,7 @@ class ListViewController: UIViewController {
         }
     }
 
-    private let rowsMissingToLoadAnotherPage = 4
+    fileprivate let rowsMissingToLoadAnotherPage = 4
     fileprivate var itemsMissingToLoadAnotherPage: Int {
         let itemsPerRow = itemsPerHorizontalSizeClass[traitCollection.horizontalSizeClass] ?? defaultItemsPerRow
         return itemsPerRow * rowsMissingToLoadAnotherPage
@@ -42,16 +48,15 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
         
         loadingIndicator.hidesWhenStopped = true
-        
         collectionViewLayout.minimumInteritemSpacing = 1
         collectionViewLayout.minimumLineSpacing = 1
-        applyItemSize(basedOn: traitCollection)
+        applyCollectionViewLayoutItemSize(basedOn: traitCollection)
         photosCollectionView.collectionViewLayout = collectionViewLayout
         
         searchUser(named: "almsaeed")
     }
     
-    private func applyItemSize(basedOn newTraitCollection: UITraitCollection) {
+    fileprivate func applyCollectionViewLayoutItemSize(basedOn newTraitCollection: UITraitCollection) {
         let itemsPerRow = CGFloat(itemsPerHorizontalSizeClass[newTraitCollection.horizontalSizeClass] ?? defaultItemsPerRow)
         let itemWitdh: CGFloat
         if newTraitCollection == traitCollection {
@@ -62,7 +67,7 @@ class ListViewController: UIViewController {
         collectionViewLayout.itemSize = CGSize(width: itemWitdh, height: itemWitdh)
     }
     
-    private lazy var itemsPerHorizontalSizeClass: [UIUserInterfaceSizeClass : Int] = {
+    fileprivate lazy var itemsPerHorizontalSizeClass: [UIUserInterfaceSizeClass : Int] = {
         return [
             .compact : self.defaultItemsPerRow,
             .regular: 7
@@ -71,78 +76,113 @@ class ListViewController: UIViewController {
     
     override func willTransition(to newCollection: UITraitCollection,
                                  with coordinator: UIViewControllerTransitionCoordinator) {
-        applyItemSize(basedOn: newCollection)
+        applyCollectionViewLayoutItemSize(basedOn: newCollection)
         photosCollectionView.reloadData()
     }
     
     fileprivate func searchUser(named name: String) {
-        photoSet = PhotoSet.empty
-        photosCollectionView.reloadData()
-        loadingIndicator.startAnimating()
-        loadingLabel.text = "Loading..."
-        loadingLabel.isHidden = false
+        lastNameSearched = name
+        putUIInNewSearchState()
         
-        //TODO: Wrap this on a DispatchGroup of two calls. User and photos.
         userSearcher.search(by: name) { [weak self] result in
             switch result {
-            case .success(let user):
-                self?.user = user
-                self?.loadPhotos(for: user)
-            case .failure(let error):
-                self?.loadingIndicator.stopAnimating()
-                switch error {
-                case .notFound:
-                    self?.loadingIndicator.stopAnimating()
-                    self?.loadingLabel.text = "User not found"
-                case .noNetwork:
-                    self?.loadingLabel.text = "You are not connected to the internet"
-                default:
-                    self?.loadingLabel.text = "An error occurred and it was not possible to load the user"
-                }
+            case .success(let user): self?.got(user)
+            case .failure(let error): self?.failedToGetUser(with: error)
             }
         }
     }
     
+    fileprivate func putUIInNewSearchState() {
+        photoSet = PhotoSet.empty
+        refreshButton.isHidden = true
+        photosCollectionView.reloadData()
+        loadingIndicator.startAnimating()
+        loadingLabel.text = "Loading..."
+        loadingLabel.isHidden = false
+    }
+    
+    fileprivate func got(_ user: User) {
+        self.user = user
+        loadPhotos(for: user)
+    }
+
+    fileprivate let userErrorMessages: [FFError : String] = [
+        .notFound : "User not found",
+        .noNetwork : "You are not connected to the internet",
+    ]
+
+    fileprivate func failedToGetUser(with error: FFError) {
+        loadingIndicator.stopAnimating()
+        refreshButton.isHidden = false
+        let errorMessage = userErrorMessages[error] ?? "An error occurred and it was not possible to load the user"
+        loadingLabel.text = errorMessage
+    }
+    
     fileprivate func loadPhotos(for user: User, in page: Int = 0) {
-        noNetworkTopConstraint.constant = -30
-        UIView.animate(withDuration: 0.2) {
-            self.view.layoutIfNeeded()
+        hideNoNetworkView()
+        refreshButton.isHidden = true
+        
+        searchingPhotos = true
+        Users.PublicPhotosGetter(user: user).getPublicPhotos(in: page) { [weak self] result in
+            self?.hideLoadingViews()
+            switch result {
+            case .success(let photoSet): self?.got(photoSet)
+            case .failure(let error): self?.failedToGetPhotoSet(with: error, in: page)
+            }
+        }
+    }
+    
+    fileprivate func hideLoadingViews() {
+        loadingIndicator.stopAnimating()
+        loadingLabel.isHidden = true
+    }
+    
+    fileprivate func got(_ photoSet: PhotoSet) {
+        print("got")
+        searchingPhotos = false
+        if photoSet.isEmpty {
+            loadingLabel.isHidden = false
+            loadingLabel.text = "This user has no photos"
+            self.photoSet = photoSet
+            photosCollectionView.reloadData()
+            return
         }
         
-        Users.PublicPhotosGetter(user: user).getPublicPhotos(in: page) { [weak self] result in
-            guard let s = self else { return }
-            s.loadingIndicator.stopAnimating()
-            s.loadingLabel.isHidden = true
-            switch result {
-            case .success(let photoSet):
-                if photoSet.isEmpty {
-                    s.loadingLabel.isHidden = false
-                    s.loadingLabel.text = "This user has no photos"
-                }
-                if photoSet.isFirstPage {
-                    s.photoSet = photoSet
-                } else {
-                    var currentPhotosList = s.photoSet.photos
-                    currentPhotosList.append(contentsOf: photoSet.photos)
-                    s.photoSet = PhotoSet(currentPage: photoSet.currentPage,
-                                          totalPages: photoSet.totalPages,
-                                          photos: currentPhotosList)
-                }
-                self?.photosCollectionView.reloadData()
-            case .failure(let error):
-                if error == .noNetwork {
-                    if page != 0 {
-                        self?.noNetworkTopConstraint.constant = 0
-                        UIView.animate(withDuration: 0.2) {
-                            self?.view.layoutIfNeeded()
-                        }
-                    } else {
-                        s.loadingLabel.text = "You are not conected to the internet."
-                    }
-                } else {
-                    s.loadingLabel.text = "There was an error loading this user's photos."
-                }
+        if photoSet.isFirstPage {
+            self.photoSet = photoSet
+        } else {
+            var currentPhotosList = self.photoSet.photos
+            currentPhotosList.append(contentsOf: photoSet.photos)
+            self.photoSet = PhotoSet(currentPage: photoSet.currentPage,
+                                  totalPages: photoSet.totalPages,
+                                  photos: currentPhotosList)
+        }
+        photosCollectionView.reloadData()
+    }
+    
+    fileprivate func failedToGetPhotoSet(with error: FFError, in page: Int) {
+        if error == .noNetwork {
+            if page != 0 {
+                showNoNetworkView()
+            } else {
+                loadingLabel.text = "You are not conected to the internet."
             }
+        } else {
+            loadingLabel.text = "There was an error loading this user's photos."
+        }
+    }
+
+    fileprivate func hideNoNetworkView() {
+        noNetworkTopConstraint.constant = -30
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+    fileprivate func showNoNetworkView() {
+        noNetworkTopConstraint.constant = 0
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.view.layoutIfNeeded()
         }
     }
     
@@ -162,7 +202,6 @@ extension ListViewController : UISearchBarDelegate {
         if let searchText = searchBar.text,
             !searchText.characters.isEmpty,
             lastNameSearched != searchText {
-            lastNameSearched = searchText
             searchUser(named: searchText)
             searchBar.resignFirstResponder()
         }
@@ -189,8 +228,8 @@ extension ListViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let user = user,
             indexPath.item == photoSet.photos.count - itemsMissingToLoadAnotherPage,
+            !searchingPhotos,
             photoSet.hasMorePages {
-            
             loadPhotos(for: user, in: photoSet.currentPage + 1)
         }
     }

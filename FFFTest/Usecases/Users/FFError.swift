@@ -1,5 +1,5 @@
 //
-//  UserError.swift
+//  FFError.swift
 //  FFFTest
 //
 //  Created by Nuno Gonçalves on 26/01/17.
@@ -11,5 +11,7 @@ enum FFError : Error {
     case noNetwork
     case notFound
     case notParseable
+    
+    case generic
     
 }

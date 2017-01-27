@@ -16,6 +16,8 @@ extension Users {
     
         var url = URL(string: "https://api.flickr.com/services/rest")!
         
+        var caller: NetworkCaller!
+        
         var encoding = RequestEncoding.url
         
         var headers: Params? = nil
@@ -38,8 +40,15 @@ extension Users {
         func search(by userName: String, resultAction: @escaping (Result<User>) -> Void) {
             self.userName = userName
             self.resultAction = resultAction
-            let request = URLRequestBuilder(requestOptionsOwner: self).build()
-            NetworkCaller(request: request, responseHandler: self).makeTheCall()
+            
+            DispatchQueue.global(qos: .userInteractive).async {
+                let request = URLRequestBuilder(requestOptionsOwner: self).build()
+                if let caller = self.caller {
+                    caller.makeTheCall()
+                } else {
+                    NetworkCaller(request: request, responseHandler: self).makeTheCall()
+                }
+            }
         }
     
         public func success(data: Data) {

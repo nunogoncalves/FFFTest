@@ -1,5 +1,5 @@
 //
-//  Network.Caller.swift
+//  NetworkCaller.swift
 //  FFFTest
 //
 //  Created by Nuno Gonçalves on 25/01/17.
@@ -9,11 +9,11 @@
 import Foundation
 import UIKit //This is a big code smell...
 
-struct NetworkCaller {
+class NetworkCaller {
     
     private let session: URLSession
     private let request: URLRequest
-    private let responseHandler: ResponseHandler
+    let responseHandler: ResponseHandler
     
     private static let defaultSession = URLSession(configuration: .default)
     
@@ -42,3 +42,4 @@ struct NetworkCaller {
     }
     
 }
+

@@ -10,32 +10,27 @@ import XCTest
 
 class FFFTestUITests: XCTestCase {
         
+    let app = XCUIApplication()
+    
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
         XCUIApplication().launch()
     }
-    
+
     func testExample() {
-        let app = XCUIApplication()
         XCUIDevice.shared().orientation = .portrait
-        
-        loadFirstScreenAndTapARandomCell(on: app)
-        app.otherElements
-            .containing(.navigationBar, identifier:"FFFTest.ImageDetailView")
-            .children(matching: .other)
-            .element
-            .children(matching: .other)
-            .element
-            .children(matching: .other)
-            .element
-            .children(matching: .image)
-            .element
-            .tap()
+     
+        testGalleryScreenAndTapARandomCell()
+        testImageDetailsScreen()
     }
     
-    private func loadFirstScreenAndTapARandomCell(on app: XCUIApplication) {
-        let someRandomCell = app.collectionViews.children(matching: .cell).element(boundBy: 7)
+    private func testGalleryScreenAndTapARandomCell() {
+        
+        searchUserNamePhotos()
+        
+        let cells = app.collectionViews.children(matching: .cell)
+        let someRandomCell = cells.element(boundBy: 7)
         
         let existsPredicate = NSPredicate(format: "exists == true")
         expectation(for: existsPredicate, evaluatedWith: someRandomCell, handler: nil)
@@ -43,12 +38,23 @@ class FFFTestUITests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         
         XCTAssert(someRandomCell.exists)
-        someRandomCell
-            .otherElements
-            .children(matching: .image)
-            .element
-            .tap()
         
+        XCTAssert(cells.count > 20, "expected to have more than 20 cells") //this is not great because it actually depends on the user... should have a way to inject fake user/photos here...
+        
+        someRandomCell.tap()
+    }
+    
+    private func searchUserNamePhotos() {
+        let userSearchField = app.searchFields["Search for a user"]
+        XCTAssertNotNil(userSearchField)
+        
+        userSearchField.tap()
+        userSearchField.typeText("Almsaeed")
+        app.buttons["Search"].tap()
+    }
+    
+    private func testImageDetailsScreen() {
+        app.navigationBars["FFFTest.ImageDetailView"].buttons["Flickr Fotos"].tap()
     }
 
 }

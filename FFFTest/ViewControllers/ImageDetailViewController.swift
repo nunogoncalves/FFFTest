@@ -11,13 +11,16 @@ import Nuke
 
 class ImageDetailViewController: UIViewController {
 
-    @IBOutlet fileprivate weak var imageView: UIImageView!
-    @IBOutlet fileprivate weak var titleLabel: UILabel!
-    @IBOutlet fileprivate weak var descriptionLabel: UILabel!
-    @IBOutlet fileprivate weak var loadingContainer: UIView!
-    @IBOutlet fileprivate weak var stateLabel: UILabel!
-    @IBOutlet fileprivate weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var loadingContainer: UIView!
+    @IBOutlet private weak var stateLabel: UILabel!
+    @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
 
+    //I'm in the process of rethinking my ideas against Storyboards because of this.
+    //I don't like to have optionals around because of this. I'm pretty sure it could
+    //be an IUO, but... that makes me hitchy...
     var flickrPhoto: FlickrPhoto?
     
     override func viewDidLoad() {
@@ -26,22 +29,29 @@ class ImageDetailViewController: UIViewController {
         if let flickrPhoto = flickrPhoto {
             Nuke.loadImage(with: flickrPhoto.url(for: .largeLongerSide1024), into: imageView)
             
-            Photos.InfoGetter(photo: flickrPhoto).getPhotoInfo { [weak self] result in
-                switch result {
-                case .success(let photoDetails):
-                    self?.got(photoDetails: photoDetails)
-                    self?.loadingContainer.isHidden = true
-                case .failure(_):
-                    self?.loadingContainer.isHidden = false
-                    self?.stateLabel.text = "Failed"
-                }
+            getInfo(for: flickrPhoto)
+        } else {
+            killMe()
+        }
+    }
+   
+    private func getInfo(for flickrPhoto: FlickrPhoto) {
+        Photos.InfoGetter(photo: flickrPhoto).getPhotoInfo { [weak self] result in
+            switch result {
+            case .success(let photoDetails):
+                self?.got(photoDetails)
+                self?.loadingContainer.isHidden = true
+            case .failure(_):
+                self?.loadingContainer.isHidden = false
+                self?.stateLabel.text = "Failed"
             }
         }
     }
     
-    private func got(photoDetails: FlickrPhotoDetails) {
+    private func got(_ photoDetails: FlickrPhotoDetails) {
         titleLabel.text = photoDetails.title
         descriptionLabel.text = photoDetails.description
     }
-
+    
 }
+

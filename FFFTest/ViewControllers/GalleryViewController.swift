@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  GalleryViewController.swift
 //  FFFTest
 //
 //  Created by Nuno Gonçalves on 25/01/17.
@@ -9,27 +9,27 @@
 import UIKit
 import Nuke
 
-final class ListViewController: UIViewController {
+final class GalleryViewController: UIViewController {
     
-    @IBOutlet fileprivate weak var photosCollectionView: UICollectionView!
-    @IBOutlet fileprivate weak var loadingIndicator: UIActivityIndicatorView!
-    @IBOutlet fileprivate weak var loadingLabel: UILabel!
-    @IBOutlet fileprivate weak var noNetworkTopConstraint: NSLayoutConstraint!
-    @IBOutlet fileprivate weak var refreshButton: UIButton!
+    @IBOutlet private weak var photosCollectionView: UICollectionView!
+    @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var loadingLabel: UILabel!
+    @IBOutlet private weak var noNetworkTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var refreshButton: UIButton!
     
-    @IBAction fileprivate func refreshTapped() {
+    @IBAction private func refreshTapped() {
         searchUser(named: lastNameSearched)
     }
     
-    fileprivate let userSearcher = Users.Searcher()
+    private let userSearcher = Users.Searcher()
     fileprivate var lastNameSearched = ""
     fileprivate var user: User?
     fileprivate var photoSet = PhotoSet.empty
     fileprivate var searchingPhotos = false
     
-    fileprivate let collectionViewLayout = UICollectionViewFlowLayout()
+    private let collectionViewLayout = UICollectionViewFlowLayout()
     
-    fileprivate let defaultItemsPerRow = 5
+    private let defaultItemsPerRow = 5
 
     fileprivate var flickrImageSize: FlickrImageSize {
         switch traitCollection.horizontalSizeClass {
@@ -38,11 +38,19 @@ final class ListViewController: UIViewController {
         }
     }
 
-    fileprivate let rowsMissingToLoadAnotherPage = 4
+    private let rowsMissingToLoadAnotherPage = 4
     fileprivate var itemsMissingToLoadAnotherPage: Int {
-        let itemsPerRow = itemsPerHorizontalSizeClass[traitCollection.horizontalSizeClass] ?? defaultItemsPerRow
+        let hSizeClass = traitCollection.horizontalSizeClass
+        let itemsPerRow = itemsPerHorizontalSizeClass[hSizeClass] ?? defaultItemsPerRow
         return itemsPerRow * rowsMissingToLoadAnotherPage
     }
+    
+    private lazy var itemsPerHorizontalSizeClass: [UIUserInterfaceSizeClass : Int] = {
+        return [
+            .compact : self.defaultItemsPerRow,
+            .regular: 7
+        ]
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,10 +61,10 @@ final class ListViewController: UIViewController {
         applyCollectionViewLayoutItemSize(basedOn: traitCollection)
         photosCollectionView.collectionViewLayout = collectionViewLayout
         
-        searchUser(named: "almsaeed")
+//        searchUser(named: "almsaeed")
     }
     
-    fileprivate func applyCollectionViewLayoutItemSize(basedOn newTraitCollection: UITraitCollection) {
+    private func applyCollectionViewLayoutItemSize(basedOn newTraitCollection: UITraitCollection) {
         let itemsPerRow = CGFloat(itemsPerHorizontalSizeClass[newTraitCollection.horizontalSizeClass] ?? defaultItemsPerRow)
         let itemWitdh: CGFloat
         if newTraitCollection == traitCollection {
@@ -66,13 +74,6 @@ final class ListViewController: UIViewController {
         }
         collectionViewLayout.itemSize = CGSize(width: itemWitdh, height: itemWitdh)
     }
-    
-    fileprivate lazy var itemsPerHorizontalSizeClass: [UIUserInterfaceSizeClass : Int] = {
-        return [
-            .compact : self.defaultItemsPerRow,
-            .regular: 7
-        ]
-    }()
     
     override func willTransition(to newCollection: UITraitCollection,
                                  with coordinator: UIViewControllerTransitionCoordinator) {
@@ -92,7 +93,7 @@ final class ListViewController: UIViewController {
         }
     }
     
-    fileprivate func putUIInNewSearchState() {
+    private func putUIInNewSearchState() {
         photoSet = PhotoSet.empty
         refreshButton.isHidden = true
         photosCollectionView.reloadData()
@@ -101,17 +102,17 @@ final class ListViewController: UIViewController {
         loadingLabel.isHidden = false
     }
     
-    fileprivate func got(_ user: User) {
+    private func got(_ user: User) {
         self.user = user
         loadPhotos(for: user)
     }
 
-    fileprivate let userErrorMessages: [FFError : String] = [
+    private let userErrorMessages: [FFError : String] = [
         .notFound : "User not found",
         .noNetwork : "You are not connected to the internet",
     ]
 
-    fileprivate func failedToGetUser(with error: FFError) {
+    private func failedToGetUser(with error: FFError) {
         loadingIndicator.stopAnimating()
         refreshButton.isHidden = false
         let errorMessage = userErrorMessages[error] ?? "An error occurred and it was not possible to load the user"
@@ -132,12 +133,12 @@ final class ListViewController: UIViewController {
         }
     }
     
-    fileprivate func hideLoadingViews() {
+    private func hideLoadingViews() {
         loadingIndicator.stopAnimating()
         loadingLabel.isHidden = true
     }
     
-    fileprivate func got(_ photoSet: PhotoSet) {
+    private func got(_ photoSet: PhotoSet) {
         searchingPhotos = false
         if photoSet.isEmpty {
             loadingLabel.isHidden = false
@@ -159,7 +160,7 @@ final class ListViewController: UIViewController {
         photosCollectionView.reloadData()
     }
     
-    fileprivate func failedToGetPhotoSet(with error: FFError, in page: Int) {
+    private func failedToGetPhotoSet(with error: FFError, in page: Int) {
         if error == .noNetwork {
             if page != 0 {
                 showNoNetworkView()
@@ -171,16 +172,18 @@ final class ListViewController: UIViewController {
         }
     }
 
-    fileprivate func hideNoNetworkView() {
-        noNetworkTopConstraint.constant = -30
-        UIView.animate(withDuration: 0.2) { [weak self] in
+    private let noNetworkHiddenTopContrant: CGFloat = -30
+    private let noNetworkAnimationDuration: TimeInterval = 0.2
+    private func hideNoNetworkView() {
+        noNetworkTopConstraint.constant = noNetworkHiddenTopContrant
+        UIView.animate(withDuration: noNetworkAnimationDuration) { [weak self] in
             self?.view.layoutIfNeeded()
         }
     }
     
-    fileprivate func showNoNetworkView() {
+    private func showNoNetworkView() {
         noNetworkTopConstraint.constant = 0
-        UIView.animate(withDuration: 0.2) { [weak self] in
+        UIView.animate(withDuration: noNetworkAnimationDuration) { [weak self] in
             self?.view.layoutIfNeeded()
         }
     }
@@ -195,7 +198,7 @@ final class ListViewController: UIViewController {
    
 }
 
-extension ListViewController : UISearchBarDelegate {
+extension GalleryViewController : UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let searchText = searchBar.text,
@@ -208,7 +211,7 @@ extension ListViewController : UISearchBarDelegate {
     
 }
 
-extension ListViewController : UICollectionViewDataSource {
+extension GalleryViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoSet.photos.count
@@ -223,13 +226,17 @@ extension ListViewController : UICollectionViewDataSource {
     
 }
 
-extension ListViewController : UICollectionViewDelegate {
+extension GalleryViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let user = user,
-            indexPath.item == photoSet.photos.count - itemsMissingToLoadAnotherPage,
-            !searchingPhotos,
-            photoSet.hasMorePages {
-            loadPhotos(for: user, in: photoSet.currentPage + 1)
+        if isItTimeToLoadMorePhotos(at: indexPath) {
+            loadPhotos(for: user!, in: photoSet.currentPage + 1)
         }
+    }
+    
+    private func isItTimeToLoadMorePhotos(at indexPath: IndexPath) -> Bool {
+        return user != nil &&
+            indexPath.item == photoSet.photos.count - itemsMissingToLoadAnotherPage &&
+            !searchingPhotos &&
+            photoSet.hasMorePages
     }
 }

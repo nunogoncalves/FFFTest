@@ -491,7 +491,6 @@
 				TargetAttributes = {
 					85345C671E38A89000729CC9 = {
 						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = 9D23XSN84S;
 						ProvisioningStyle = Automatic;
 					};
 					85345C7B1E38A89000729CC9 = {
@@ -889,7 +888,7 @@
 			baseConfigurationReference = 1E58A70433DA08BD87DD53C3 /* Pods-FFFTest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9D23XSN84S;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = FFFTest/Configuration/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -904,7 +903,7 @@
 			baseConfigurationReference = DA4D3E7CB938C7E29D8D3DD0 /* Pods-FFFTest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9D23XSN84S;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = FFFTest/Configuration/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

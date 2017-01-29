@@ -54,7 +54,6 @@ class ImageDetailsViewController : UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        print(view.frame)
         collectionView.reloadData()
     }
 }

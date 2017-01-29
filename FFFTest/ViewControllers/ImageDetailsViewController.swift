@@ -34,14 +34,6 @@ class ImageDetailsViewController : UIViewController {
         }
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        for v in (collectionView.visibleCells as? [ScrollingImageCell])! {
-            v.topInset = topLayoutGuide.length + UIApplication.shared.statusBarFrame.height
-        }
-    }
-    
     private func getInfo(for flickrPhoto: FlickrPhoto) {
         Photos.InfoGetter(photo: flickrPhoto).getPhotoInfo { [weak self] result in
             switch result {
@@ -56,11 +48,15 @@ class ImageDetailsViewController : UIViewController {
     }
     
     private func got(_ photoDetails: FlickrPhotoDetails) {
-        titleLabel.text = photoDetails.title
-        descriptionLabel.text = photoDetails.description
-        view.setNeedsLayout()
+        self.titleLabel.text = photoDetails.title
+        self.descriptionLabel.text = photoDetails.description
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        print(view.frame)
+        collectionView.reloadData()
+    }
 }
 
 extension ImageDetailsViewController : UICollectionViewDataSource {
@@ -72,6 +68,7 @@ extension ImageDetailsViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: ScrollingImageCell = collectionView.dequeueReusableCell(for: indexPath)
+        cell.topInset = topLayoutGuide.length + UIApplication.shared.statusBarFrame.height
         if let flickrPhoto = flickrPhoto {
             Nuke.loadImage(with: flickrPhoto.url(for: .largeLongerSide1024), into: self, handler: { response, success in
                 if let image = response.value {

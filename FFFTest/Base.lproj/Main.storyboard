@@ -53,7 +53,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="photoImageView" destination="Jo8-gF-irS" id="Xi0-VP-EFs"/>
-                                            <segue destination="wzI-yd-ghI" kind="show" identifier="ShowImageDetailsSegue" id="G7D-jK-dKC"/>
+                                            <segue destination="wzI-yd-ghI" kind="show" identifier="ShowImageDetailsSegue" id="iSH-yX-hgh"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -151,7 +151,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZfW-hz-Gf6">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZfW-hz-Gf6">
                                 <rect key="frame" x="0.0" y="-2" width="375" height="669"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qtp-Dr-kPb">
@@ -289,100 +289,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YRU-mg-Jfw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1797.5999999999999" y="269.41529235382313"/>
-        </scene>
-        <!--Image Detail View Controller-->
-        <scene sceneID="0PY-IK-wVn">
-            <objects>
-                <viewController id="wZP-Bi-CuD" customClass="ImageDetailViewController" customModule="FFFTest" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="G4D-pV-l1i"/>
-                        <viewControllerLayoutGuide type="bottom" id="SeD-pH-PTv"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="uiF-5h-aRL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ1-Y0-Mfw">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ek4-HZ-tlL" userLabel="Loading Container">
-                                <rect key="frame" x="0.0" y="300.5" width="375" height="66.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fRe-E0-I3w">
-                                        <rect key="frame" x="140" y="5" width="97" height="26.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="9KL-F1-ZBi">
-                                        <rect key="frame" x="178" y="41.5" width="20" height="20"/>
-                                        <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="fRe-E0-I3w" firstAttribute="top" secondItem="ek4-HZ-tlL" secondAttribute="top" constant="5" id="8I1-Dq-meK"/>
-                                    <constraint firstAttribute="bottom" secondItem="9KL-F1-ZBi" secondAttribute="bottom" constant="5" id="a0a-Od-rEx"/>
-                                    <constraint firstItem="9KL-F1-ZBi" firstAttribute="centerX" secondItem="ek4-HZ-tlL" secondAttribute="centerX" id="k0z-of-0As"/>
-                                    <constraint firstItem="fRe-E0-I3w" firstAttribute="centerX" secondItem="9KL-F1-ZBi" secondAttribute="centerX" id="ozW-CD-GJX"/>
-                                    <constraint firstItem="9KL-F1-ZBi" firstAttribute="top" secondItem="fRe-E0-I3w" secondAttribute="bottom" constant="10" id="zbM-rs-NNz"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="fRe-E0-I3w"/>
-                                        <exclude reference="9KL-F1-ZBi"/>
-                                    </mask>
-                                    <mask key="constraints">
-                                        <exclude reference="ozW-CD-GJX"/>
-                                        <exclude reference="k0z-of-0As"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="subviews">
-                                        <include reference="fRe-E0-I3w"/>
-                                        <include reference="9KL-F1-ZBi"/>
-                                    </mask>
-                                    <mask key="constraints">
-                                        <include reference="ozW-CD-GJX"/>
-                                        <include reference="k0z-of-0As"/>
-                                    </mask>
-                                </variation>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ZZ1-Y0-Mfw" firstAttribute="top" secondItem="G4D-pV-l1i" secondAttribute="bottom" id="3al-0o-klv"/>
-                            <constraint firstAttribute="trailing" secondItem="ZZ1-Y0-Mfw" secondAttribute="trailing" id="Bfd-T8-KGy"/>
-                            <constraint firstItem="SeD-pH-PTv" firstAttribute="top" secondItem="ZZ1-Y0-Mfw" secondAttribute="bottom" id="Prx-e4-b9l"/>
-                            <constraint firstItem="ek4-HZ-tlL" firstAttribute="centerY" secondItem="uiF-5h-aRL" secondAttribute="centerY" id="WIi-KS-4fD"/>
-                            <constraint firstItem="ek4-HZ-tlL" firstAttribute="leading" secondItem="uiF-5h-aRL" secondAttribute="leading" id="XLJ-rA-aH1"/>
-                            <constraint firstItem="ZZ1-Y0-Mfw" firstAttribute="leading" secondItem="uiF-5h-aRL" secondAttribute="leading" id="dOw-WD-tzi"/>
-                            <constraint firstAttribute="trailing" secondItem="ek4-HZ-tlL" secondAttribute="trailing" id="dvt-ZK-kfF"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="ek4-HZ-tlL"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="ek4-HZ-tlL"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <connections>
-                        <outlet property="descriptionLabel" destination="CLH-9C-3y7" id="Jt6-NS-Ogf"/>
-                        <outlet property="imageView" destination="ZZ1-Y0-Mfw" id="47S-yu-b1r"/>
-                        <outlet property="loadingContainer" destination="ek4-HZ-tlL" id="ZUJ-9F-MmO"/>
-                        <outlet property="loadingIndicator" destination="9KL-F1-ZBi" id="DEe-eG-Cbe"/>
-                        <outlet property="stateLabel" destination="fRe-E0-I3w" id="4u6-g0-v18"/>
-                        <outlet property="titleLabel" destination="d5y-OC-2BS" id="C8A-dN-hff"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vtu-kb-7a2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1798" y="-380"/>
+            <point key="canvasLocation" x="1745" y="63"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3Xl-1g-8GM">

@@ -29,7 +29,7 @@ class ScrollingImageCell: UICollectionViewCell {
         super.init(coder: aDecoder)
         scrollView = UIScrollView(frame: bounds)
         imageView = UIImageView(frame: bounds)
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         scrollView.addSubview(imageView)
         scrollView.maximumZoomScale = 3
         scrollView.delegate = self

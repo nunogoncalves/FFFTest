@@ -56,8 +56,9 @@ class ImageDetailsViewController : UIViewController {
     }
     
     private func got(_ photoDetails: FlickrPhotoDetails) {
-//        titleLabel.text = photoDetails.title
-//        descriptionLabel.text = photoDetails.description
+        titleLabel.text = photoDetails.title
+        descriptionLabel.text = photoDetails.description
+        view.setNeedsLayout()
     }
     
 }

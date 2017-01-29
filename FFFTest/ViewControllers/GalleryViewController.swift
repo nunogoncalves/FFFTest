@@ -60,8 +60,6 @@ final class GalleryViewController: UIViewController {
         collectionViewLayout.minimumLineSpacing = 1
         applyCollectionViewLayoutItemSize(basedOn: traitCollection)
         photosCollectionView.collectionViewLayout = collectionViewLayout
-        
-        searchUser(named: "almsaeed")
     }
     
     private func applyCollectionViewLayoutItemSize(basedOn newTraitCollection: UITraitCollection) {

@@ -45,7 +45,7 @@ class FFFTestUITests: XCTestCase {
     }
     
     private func searchUserNamePhotos() {
-        let userSearchField = app.searchFields["Search for a user"]
+        let userSearchField = app.searchFields["Search for a user (ex: Almsaeed)"]
         XCTAssertNotNil(userSearchField)
         
         userSearchField.tap()
@@ -54,7 +54,7 @@ class FFFTestUITests: XCTestCase {
     }
     
     private func testImageDetailsScreen() {
-        app.navigationBars["FFFTest.ImageDetailView"].buttons["Flickr Fotos"].tap()
+        app.navigationBars["FFFTest.ImageDetailsView"].buttons["Flickr Fotos"].tap()
     }
 
 }

@@ -59,7 +59,9 @@ final class GalleryViewController: UIViewController {
         collectionViewLayout.minimumInteritemSpacing = 1
         collectionViewLayout.minimumLineSpacing = 1
         applyCollectionViewLayoutItemSize(basedOn: traitCollection)
-        photosCollectionView.collectionViewLayout = collectionViewLayout        
+        photosCollectionView.collectionViewLayout = collectionViewLayout
+        
+        searchUser(named: "almsaeed")
     }
     
     private func applyCollectionViewLayoutItemSize(basedOn newTraitCollection: UITraitCollection) {
@@ -188,7 +190,7 @@ final class GalleryViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowImageDetailsSegue",
-            let detailsViewController = segue.destination as? ImageDetailViewController,
+            let detailsViewController = segue.destination as? ImageDetailsViewController,
             let selectedIndexPath = photosCollectionView.indexPathsForSelectedItems?.first{
             detailsViewController.flickrPhoto = photoSet.photos[selectedIndexPath.item]
         }

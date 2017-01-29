@@ -1,5 +1,5 @@
 //
-//  UserPublicPhotosGetter.swift
+//  UsersPublicPhotosGetterTests.swift
 //  FFFTest
 //
 //  Created by Nuno Gonçalves on 27/01/17.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import FFFTest
 
-class UsersPublicPhotosGetter: XCTestCase {
+class UsersPublicPhotosGetterTests: XCTestCase {
     
     static let user = User(json: ["nsid" : "09213219312", "username" : ["_content" : "nunogoncalves"]])!
     let searcher = Users.PublicPhotosGetter(user: user)
@@ -58,8 +58,8 @@ class UsersPublicPhotosGetter: XCTestCase {
         
         waitForExpectations(timeout: 5, handler: nil)
         
-        let json: JSON = ["id" : "123", "farm" : 345, "server" : "server_value", "secret" : "secret_value"]
-        let photo = FlickrPhoto(json: json)
+//        let json: JSON = ["id" : "123", "farm" : 345, "server" : "server_value", "secret" : "secret_value"]
+//        let photo = FlickrPhoto(json: json)
         let expectedPhotoSet = PhotoSet(currentPage: 1, totalPages: 1, photos: [])
         let expected = Optional<PhotoSet>(expectedPhotoSet)
         
